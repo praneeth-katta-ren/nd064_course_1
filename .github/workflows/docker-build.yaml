@@ -28,5 +28,5 @@ jobs:
         file: ./Dockerfile
         platforms: linux/amd64
         push: true
-        tags: ${{ env.YOUR_DOCKERHUB_REPOSITORY }}/python-helloworld:latest
+        tags: praneethkattaren/python-helloworld:latest
 
