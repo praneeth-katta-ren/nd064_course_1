@@ -1,0 +1,21 @@
+name: nginx
+tag: 1.18.0
+appName: nginx-production
+
+namespace:
+  name: prod
+
+replicaCount: 2
+
+image:
+  repository: nginx
+  tag: 1.17.0
+
+resources:
+  CPU: 70m
+  memory: 256Mi                                                                                                                                                                                                                                                                                                         
+servicePort: 80
+
+configmap:
+  name: version
+  value: 1.17.0

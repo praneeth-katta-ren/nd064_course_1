@@ -1,0 +1,8 @@
+apiVersion:v1
+name: python-helloworld
+description: Deploy helloworld python application
+version: 1.0.0
+
+keywords:
+- nginx
+
