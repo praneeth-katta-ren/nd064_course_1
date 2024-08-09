@@ -17,5 +17,4 @@ resources:
 
 
 configmap:
-  name: version
-  value: 1.18.0
+  data: "version: 1.18.0"
