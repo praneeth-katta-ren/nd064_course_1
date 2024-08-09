@@ -1,0 +1,24 @@
+name: nginx
+tag: alpine
+appName: nginx-alpine
+
+namespace:
+  name: demo
+
+replicaCount: 3
+
+image:
+  repository: nginx
+  tag: alpine
+
+imagePullPolicy: IfNotPresent
+
+resources:
+  CPU: 50m
+  memory: 256Mi
+
+serviceType: ClusterIP
+servicePort: 8111
+
+configmap:
+  data: "version: alpine"
