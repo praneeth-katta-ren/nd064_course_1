@@ -11,7 +11,7 @@ image:
   repository: nginx
   tag: alpine
 
-imagePullPolicy: ifNotPresent
+imagePullPolicy: IfNotPresent
 
 resources:
   CPU: 50m
