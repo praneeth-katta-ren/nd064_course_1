@@ -1,4 +1,4 @@
-apiVersion:v1
+apiVersion: v1
 data:
   {{ .Values.configmap.name }}: {{ .Values.configmap.value }}
 kind: ConfigMap
