@@ -17,5 +17,4 @@ resources:
 servicePort: 80
 
 configmap:
-  name: version
-  value: 1.17.0
+  data: "version: 1.17.0"
