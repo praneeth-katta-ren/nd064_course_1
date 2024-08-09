@@ -1,5 +1,5 @@
 name: nginx
-tag: 1.18.0
+tag: 1.17.0
 appName: nginx-production
 
 namespace:
