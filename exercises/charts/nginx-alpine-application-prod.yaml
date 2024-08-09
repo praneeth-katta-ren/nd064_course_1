@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: nginx-alpine 
+  name: nginx-prod 
   namespace: argocd
 spec:
   destination:
@@ -12,7 +12,7 @@ spec:
     helm:
       valueFiles:
       - values-prod.yaml
-    path: exercises/manifests/
+    path: exercises/charts/
     repoURL: https://github.com/praneeth-katta-ren/nd064_course_1 
     targetRevision: HEAD
   syncPolicy: {}
