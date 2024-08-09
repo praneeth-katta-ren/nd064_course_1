@@ -1,6 +1,6 @@
-name:nginx
-tag:1.18.0
-appName:nginx-staging
+name: nginx
+tag: 1.18.0
+appName: nginx-staging
 
 namespace:
   name: staging
