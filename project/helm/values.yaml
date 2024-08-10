@@ -8,7 +8,7 @@ namespace:
 replicaCount: 1
 
 image:
-  repository: techtrends
+  repository: praneethkattaren/techtrends
   tag: latest
   pullPolicy: IfNotPresent
 
