@@ -1,11 +1,14 @@
 import sqlite3
-
+import logging
 from flask import Flask, jsonify, json, render_template, request, url_for, redirect, flash
 from werkzeug.exceptions import abort
 
+db_connection_counter=0
 # Function to get a database connection.
 # This function connects to database with the name `database.db`
 def get_db_connection():
+    global db_connection_counter
+    db_connection_counter += 1
     connection = sqlite3.connect('database.db')
     connection.row_factory = sqlite3.Row
     return connection
@@ -38,6 +41,7 @@ def post(post_id):
     if post is None:
       return render_template('404.html'), 404
     else:
+      app.logger.info(f"Article {post['title']} has been retrieved")
       return render_template('post.html', post=post)
 
 # Define the About Us page
@@ -59,12 +63,39 @@ def create():
             connection.execute('INSERT INTO posts (title, content) VALUES (?, ?)',
                          (title, content))
             connection.commit()
+            app.logger.info(f"Article {title} has been created")
             connection.close()
 
             return redirect(url_for('index'))
 
     return render_template('create.html')
 
+
+# Define the health check functionality
+@app.route('/healthz', methods=["GET"])
+def healthz():
+    app.logger.info('Health check successful')
+    return jsonify({"result": "OK - healthy"})
+
+# Define the metrics functionality
+@app.route('/metrics', methods=['GET'])
+def metrics():
+    global db_connection_counter
+    connection = get_db_connection()
+    total_posts = connection.execute('SELECT COUNT(*) FROM posts').fetchone()[0]
+    
+    connection.close()
+    return jsonify({
+        'post_count': total_posts,
+        'db_connection_count': db_connection_counter
+    })
+
 # start the application on port 3111
 if __name__ == "__main__":
-   app.run(host='0.0.0.0', port='3111')
+#    logging.basicConfig(level=logging.DEBUG,)
+
+   logging.basicConfig(
+    format='%(levelname)s:%(name)s:%(asctime)s %(message)s',
+    level=logging.DEBUG,
+    datefmt='%d/%m/%Y, %H:%M:%S,')
+   app.run(host='0.0.0.0', port='3111', debug=True)
