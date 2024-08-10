@@ -24,7 +24,7 @@ spec:
         tag: sandbox
     spec:
       containers:
-      - image: techtrends:latest
+      - image: praneethkattaren/techtrends:latest
         imagePullPolicy: IfNotPresent
         name: techtrends
         ports:

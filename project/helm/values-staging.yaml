@@ -1,0 +1,19 @@
+name: techtrends
+tag: staging
+appName: techtrends-staging
+
+namespace:
+  name: staging
+
+replicaCount: 3
+
+service:
+  port: 5111
+
+resources:
+  limits:
+    cpu: "500m"
+    memory: "128Mi"
+  requests:
+    cpu: "300m"
+    memory: "90Mi"

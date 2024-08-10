@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: {{ .Values.name}}
+    tag: {{ .Values.tag}}
+  name: {{ .Values.appName}}
+  namespace: {{ .Values.namespace.name}}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ .Values.name}}
+      tag: {{ .Values.tag}}
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.name}}
+        tag: {{ .Values.tag}}
+    spec:
+      containers:
+      - image: {{ .Values.image.repository }}: {{ .Values.image.tag }}
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
+        name: {{ .Values.name}}
+        ports:
+        - containerPort: {{ .Values.containerPort }}
+        resources:
+          {{- toYaml .Values.resources | nindent 12 }}
+        livenessProbe:
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          successThreshold: 1
+          failureThreshold: 3
+          httpGet:
+            path: {{ .Values.livenessProbePath.path }}
+            port: {{ .Values.livenessProbePath.port }}
+        readinessProbe:
+          initialDelaySeconds: 5
+          periodSeconds: 10
+          successThreshold: 1
+          failureThreshold: 3
+          httpGet:
+            path: {{ .Values.readinessProbePath.path }}
+            port: {{ .Values.readinessProbePath.port }}
