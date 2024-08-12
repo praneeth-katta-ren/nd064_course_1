@@ -28,7 +28,7 @@ spec:
         imagePullPolicy: {{ .Values.image.pullPolicy }}
         name: {{ .Values.name}}
         ports:
-        - containerPort: {{ .Values.containerPort }}
+        - containerPort: {{ if .Values.service.targetPort }}{{ .Values.service.targetPort }}{{ else }}{{ .Values.service.port }}{{ end }}
         resources:
           {{- toYaml .Values.resources | nindent 12 }}
         livenessProbe:
@@ -38,7 +38,7 @@ spec:
           failureThreshold: 3
           httpGet:
             path: {{ .Values.livenessProbePath.path }}
-            port: {{ .Values.livenessProbePath.port }}
+            port: {{ if .Values.service.targetPort }}{{ .Values.service.targetPort }}{{ else }}{{ .Values.service.port }}{{ end }}
         readinessProbe:
           initialDelaySeconds: 5
           periodSeconds: 10
@@ -46,4 +46,4 @@ spec:
           failureThreshold: 3
           httpGet:
             path: {{ .Values.readinessProbePath.path }}
-            port: {{ .Values.readinessProbePath.port }}
+            port: {{ if .Values.service.targetPort }}{{ .Values.service.targetPort }}{{ else }}{{ .Values.service.port }}{{ end }}

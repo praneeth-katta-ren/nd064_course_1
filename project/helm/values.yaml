@@ -16,7 +16,7 @@ service:
   name: techtrends-sandbox-service
   type: ClusterIP
   port: 4111
-  targetPort: 3111
+  # targetPort: 3111 It is commented out because Standout Suggestion 3
   protocol: TCP
 
 resources:
@@ -27,12 +27,12 @@ resources:
     cpu: "250m"
     memory: "64Mi"
 
-containerPort: 3111
+# containerPort: 3111 #using if condition Standout Suggestion 3 instead of hardcoding
 
 livenessProbePath: 
   path: /healthz
-  port: 3111
+  # port: 3111 #using if condition Standout Suggestion 3 instead of hardcoding#using if condition Standout Suggestion 3 instead of hardcoding
 
 readinessProbePath: 
   path: /healthz
-  port: 3111
+  # port: 3111 #using if condition Standout Suggestion 3 instead of hardcoding

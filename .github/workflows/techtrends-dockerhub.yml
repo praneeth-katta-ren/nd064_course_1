@@ -8,6 +8,15 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+      - name: Docker meta
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+        images: |
+          praneethkattaren/techtrends
+        tags: | 
+          type=schedule
+          type=semver,pattern={{major}}.{{minor}}
       -
         name: Checkout
         uses: actions/checkout@v2

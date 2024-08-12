@@ -74,6 +74,16 @@ def create():
 # Define the health check functionality
 @app.route('/healthz', methods=["GET"])
 def healthz():
+    """
+    Checks the connection to the database and returns the health status as helath 
+    if there is table 'posts' in the database other wise return 500 unhealthy
+    """
+    try:
+        connection = get_db_connection()
+        connection.execute('SELECT 1 FROM posts LIMIT 1')
+    except sqlite3.OperationalError:
+        app.logger.info('Database is not accessible')
+        return jsonify({"result": "Unhealthy - database not accessible"}), 500
     app.logger.info('Health check successful')
     return jsonify({"result": "OK - healthy"})
 

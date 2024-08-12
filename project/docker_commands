@@ -18,16 +18,27 @@ docker * Serving Flask app 'app' (lazy loading)
    WARNING: This is a development server. Do not use it in a production deployment.
    Use a production WSGI server instead.
  * Debug mode: on
-WARNING:werkzeug:10/08/2024, 09:46:45,  * Running on all addresses.
+WARNING:werkzeug:12/08/2024, 10:07:46,  * Running on all addresses.
    WARNING: This is a development server. Do not use it in a production deployment.
-INFO:werkzeug:10/08/2024, 09:46:45,  * Running on http://192.168.0.2:3111/ (Press CTRL+C to quit)
-INFO:werkzeug:10/08/2024, 09:46:45,  * Restarting with stat
-WARNING:werkzeug:10/08/2024, 09:46:46,  * Debugger is active!
-INFO:werkzeug:10/08/2024, 09:46:46,  * Debugger PIN: 118-547-868
-INFO:werkzeug:10/08/2024, 09:47:07, 192.168.0.1 - - [10/Aug/2024 09:47:07] "GET / HTTP/1.1" 200 -
-INFO:werkzeug:10/08/2024, 09:47:07, 192.168.0.1 - - [10/Aug/2024 09:47:07] "GET /static/css/main.css HTTP/1.1" 304 -
-INFO:app:10/08/2024, 09:47:14, Article 2020 CNCF Annual Report has been retrieved
-INFO:werkzeug:10/08/2024, 09:47:14, 192.168.0.1 - - [10/Aug/2024 09:47:14] "GET /1 HTTP/1.1" 200 -
-INFO:werkzeug:10/08/2024, 09:47:14, 192.168.0.1 - - [10/Aug/2024 09:47:14] "GET /static/css/main.css HTTP/1.1" 304 -
-INFO:werkzeug:10/08/2024, 09:47:47, 192.168.0.1 - - [10/Aug/2024 09:47:47] "GET / HTTP/1.1" 200 -
-INFO:werkzeug:10/08/2024, 09:47:48, 192.168.0.1 - - [10/Aug/2024 09:47:48] "GET /static/css/main.css HTTP/1.1" 304 -
+INFO:werkzeug:12/08/2024, 10:07:46,  * Running on http://192.168.0.2:3111/ (Press CTRL+C to quit)
+INFO:werkzeug:12/08/2024, 10:07:46,  * Restarting with stat
+WARNING:werkzeug:12/08/2024, 10:07:46,  * Debugger is active!
+INFO:werkzeug:12/08/2024, 10:07:46,  * Debugger PIN: 123-042-162
+INFO:werkzeug:12/08/2024, 10:11:42, 192.168.0.1 - - [12/Aug/2024 10:11:42] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:12/08/2024, 10:11:42, 192.168.0.1 - - [12/Aug/2024 10:11:42] "GET /static/css/main.css HTTP/1.1" 304 -
+INFO:app:12/08/2024, 10:12:38, Health check successful
+INFO:werkzeug:12/08/2024, 10:12:38, 192.168.0.1 - - [12/Aug/2024 10:12:38] "GET /healthz HTTP/1.1" 200 -
+INFO:werkzeug:12/08/2024, 10:12:49, 192.168.0.1 - - [12/Aug/2024 10:12:49] "GET /metrics HTTP/1.1" 200 -
+INFO:app:12/08/2024, 10:13:25, Article KubeCon + CloudNativeCon 2021 has been retrieved
+INFO:werkzeug:12/08/2024, 10:13:25, 192.168.0.1 - - [12/Aug/2024 10:13:25] "GET /2 HTTP/1.1" 200 -
+INFO:werkzeug:12/08/2024, 10:13:25, 192.168.0.1 - - [12/Aug/2024 10:13:25] "GET /static/css/main.css HTTP/1.1" 304 -
+INFO:werkzeug:12/08/2024, 10:13:30, 192.168.0.1 - - [12/Aug/2024 10:13:30] "GET /8 HTTP/1.1" 404 -
+INFO:werkzeug:12/08/2024, 10:13:30, 192.168.0.1 - - [12/Aug/2024 10:13:30] "GET /static/css/main.css HTTP/1.1" 304 -
+INFO:werkzeug:12/08/2024, 10:13:38, 192.168.0.1 - - [12/Aug/2024 10:13:38] "GET /about HTTP/1.1" 200 -
+INFO:werkzeug:12/08/2024, 10:13:38, 192.168.0.1 - - [12/Aug/2024 10:13:38] "GET /static/css/main.css HTTP/1.1" 304 -
+INFO:werkzeug:12/08/2024, 10:13:40, 192.168.0.1 - - [12/Aug/2024 10:13:40] "GET /create HTTP/1.1" 200 -
+INFO:werkzeug:12/08/2024, 10:13:40, 192.168.0.1 - - [12/Aug/2024 10:13:40] "GET /static/css/main.css HTTP/1.1" 304 -
+INFO:app:12/08/2024, 10:14:06, Article Training Article has been created
+INFO:werkzeug:12/08/2024, 10:14:06, 192.168.0.1 - - [12/Aug/2024 10:14:06] "POST /create HTTP/1.1" 302 -
+INFO:werkzeug:12/08/2024, 10:14:06, 192.168.0.1 - - [12/Aug/2024 10:14:06] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:12/08/2024, 10:14:06, 192.168.0.1 - - [12/Aug/2024 10:14:06] "GET /static/css/main.css HTTP/1.1" 304 -

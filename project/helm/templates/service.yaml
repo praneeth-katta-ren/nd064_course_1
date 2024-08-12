@@ -10,7 +10,8 @@ spec:
   ports:
   - port: {{ .Values.service.port }}
     protocol: {{ .Values.service.protocol }}
-    targetPort: {{ .Values.service.targetPort }}
+    # targetPort: {{ default .Values.service.port .Values.service.targetPort }}
+    targetPort: {{ if .Values.service.targetPort }}{{ .Values.service.targetPort }}{{ else }}{{ .Values.service.port }}{{ end }}
   selector:
     app: {{ .Values.name}}
     tag: {{ .Values.tag}}
