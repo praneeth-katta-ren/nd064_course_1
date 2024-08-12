@@ -15,6 +15,7 @@ jobs:
           images: |
             praneethkattaren/techtrends
           tags: |
+            type=sha
             type=ref,event=branch
             type=semver,pattern={{version}}
             type=raw,value=latest
