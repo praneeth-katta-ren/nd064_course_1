@@ -1,5 +1,7 @@
 import sqlite3
 import logging
+import os
+import sys
 from flask import Flask, jsonify, json, render_template, request, url_for, redirect, flash
 from werkzeug.exceptions import abort
 
@@ -15,10 +17,14 @@ def get_db_connection():
 
 # Function to get a post using its ID
 def get_post(post_id):
-    connection = get_db_connection()
-    post = connection.execute('SELECT * FROM posts WHERE id = ?',
-                        (post_id,)).fetchone()
-    connection.close()
+    try:
+        connection = get_db_connection()
+        post = connection.execute('SELECT * FROM posts WHERE id = ?',
+                            (post_id,)).fetchone()
+    except sqlite3.Error:
+        app.logger.error("SQLite database connection error")
+    finally:
+        connection.close()
     return post
 
 # Define the Flask application
@@ -31,6 +37,7 @@ def index():
     connection = get_db_connection()
     posts = connection.execute('SELECT * FROM posts').fetchall()
     connection.close()
+    app.logger.info("The homepage has been retrieved.")
     return render_template('index.html', posts=posts)
 
 # Define how each individual article is rendered 
@@ -39,14 +46,16 @@ def index():
 def post(post_id):
     post = get_post(post_id)
     if post is None:
+      app.logger.warning(f"Post with ID {post_id} not found!")
       return render_template('404.html'), 404
     else:
-      app.logger.info(f"Article {post['title']} has been retrieved")
+      app.logger.info(f"The <<{post['title']}>> post has been retrieved")
       return render_template('post.html', post=post)
 
 # Define the About Us page
 @app.route('/about')
 def about():
+    app.logger.info("The about webpage has been retrieved.")
     return render_template('about.html')
 
 # Define the post creation functionality 
@@ -63,7 +72,7 @@ def create():
             connection.execute('INSERT INTO posts (title, content) VALUES (?, ?)',
                          (title, content))
             connection.commit()
-            app.logger.info(f"Article {title} has been created")
+            app.logger.info(f"The <<{title}>> post has been created successfully")
             connection.close()
 
             return redirect(url_for('index'))
@@ -102,10 +111,31 @@ def metrics():
 
 # start the application on port 3111
 if __name__ == "__main__":
-#    logging.basicConfig(level=logging.DEBUG,)
+    loglevel = os.getenv("LOGLEVEL", "DEBUG").upper()
+    loglevel = (
+        getattr(logging, loglevel)
+        if loglevel in ["CRITICAL", "DEBUG", "ERROR", "INFO", "WARNING",]
+        else logging.DEBUG
+    )
 
-   logging.basicConfig(
-    format='%(levelname)s:%(name)s:%(asctime)s %(message)s',
-    level=logging.DEBUG,
-    datefmt='%d/%m/%Y, %H:%M:%S,')
-   app.run(host='0.0.0.0', port='3111', debug=True)
+    # Create a handler for stdout
+    stdout_handler = logging.StreamHandler(sys.stdout)
+    stdout_handler.setLevel(logging.DEBUG)  # Set level for stdout
+
+    # Create a handler for stderr
+    stderr_handler = logging.StreamHandler(sys.stderr)
+    stderr_handler.setLevel(logging.ERROR)  # Set level for stderr
+
+    format_handler = '%(asctime)s: %(levelname)-8s %(name)-10s  %(message)s' # Format handler
+
+    formatter = logging.Formatter(format_handler, datefmt='%Y-%m-%d, %H:%M:%S')
+    stdout_handler.setFormatter(formatter)
+    stderr_handler.setFormatter(formatter)
+    handlers = [stdout_handler, stderr_handler]
+
+    # Configure logging
+    logging.basicConfig(
+        handlers=handlers,
+        level=loglevel,
+    )
+    app.run(host='0.0.0.0', port='3111', debug=True)
